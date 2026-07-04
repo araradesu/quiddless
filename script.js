@@ -228,7 +228,13 @@ function openModal(src) {
             const ans10 = normalizeText(document.getElementById('q10').value);
             if (_d(['JUUzJTgxJUI1JUUzJTgyJTg5JUUzJTgxJTg0JUUzJTgxJUE4', 'ZmxpZ2h0']).includes(ans10)) { score++; results[9] = true; }
 
-            document.getElementById('result').innerText = `正解数: ${score} / 7`;
+            const resultEl = document.getElementById('result');
+            resultEl.innerText = `正解数: ${score} / 7`;
+            if (score === 7) {
+                resultEl.classList.add('perfect');
+            } else {
+                resultEl.classList.remove('perfect');
+            }
             renderDetails(results);
             renderShareButton(score);
         }
