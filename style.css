@@ -58,9 +58,10 @@ body {
         }
 
         .highlight-underline {
-            background: linear-gradient(transparent 60%, rgba(214, 158, 46, 0.4) 60%);
-            font-weight: 500;
-            padding: 0 2px;
+            border-bottom: 2px solid #d69e2e;
+            font-weight: 700;
+            padding-bottom: 1px;
+            color: #2d3748;
         }
 
         .desc {
