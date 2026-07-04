@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiddless - Quiz? Riddle? or... Meaningless??</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f4f6f8;
+            color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 680px;
+            width: 90%;
+            background: #ffffff;
+            padding: 40px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin: 50px 0;
+            border-radius: 12px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro-text {
+            text-align: center;
+            margin: 20px 0 50px 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .intro-text p {
+            margin: 0 0 14px 0;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #34495e;
+            font-weight: 300;
+        }
+
+        .intro-text .final-mission {
+            margin-top: 30px;
+            margin-bottom: 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-warning {
+            background: linear-gradient(to right, rgba(255, 213, 79, 0.2) 0%, rgba(255, 213, 79, 0.8) 100%);
+            font-weight: 500;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .desc {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #4a5568;
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: left;
+            border: 1px solid #e2e8f0;
+        }
+
+        .desc-section {
+            margin-bottom: 30px;
+        }
+
+        .desc-section h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #2d3748;
+            border-bottom: 2px solid #cbd5e0;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .desc-section ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .desc-section li {
+            margin-bottom: 8px;
+        }
+
+        .desc-section.contact-section {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 25px;
+            margin-bottom: 0;
+        }
+
+        .desc-section.contact-section h3 {
+            border-bottom: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .desc-section a {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .desc-section a:hover {
+            text-decoration: underline;
+        }
+
+        .question {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 30px;
+        }
+
+        .img-wrapper {
+            position: relative;
+            display: block;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .question .img-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .question img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .genre-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 4px;
+            pointer-events: none;
+            z-index: 10;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        .genre-quiz {
+            color: #e57373;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .genre-riddle {
+            color: #64b5f6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-family: 'Noto Sans JP', sans-serif;
+            border: 2px solid #eef2f5;
+            background-color: #fdfdfd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .input-wrap input:focus {
+            outline: none;
+            border-color: #3498db;
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button.submit-btn {
+            background: linear-gradient(135deg, #2c3e50, #000000);
+            color: #fff;
+            border: none;
+            padding: 18px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        button.submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        button.submit-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .share-x-btn {
+            background-color: #0f1419;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans JP', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .share-x-btn:hover {
+            background-color: #272c30;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 28px;
+            font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+            color: #1a202c;
+            min-height: 42px;
+            letter-spacing: 2px;
+        }
+
+        .question.dummy-hidden {
+            pointer-events: none;
+        }
+
+        .question.dummy-hidden .img-wrapper {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .question.dummy-hidden img {
+            filter: brightness(20%) grayscale(100%);
+        }
+
+        .question.dummy-hidden .img-wrapper::after {
+            content: 'MEANINGLESS';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 40px;
+            font-weight: 300;
+            letter-spacing: 12px;
+            pointer-events: none;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            z-index: 20;
+        }
+
+        .question.dummy-hidden input {
+            background-color: #f1f5f9;
+            color: #94a3b8;
+            border-color: #e2e8f0;
+            box-shadow: none;
+        }
+
+        .details-area {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .detail-item {
+            background: #fff;
+            border: 2px solid #eef2f5;
+            padding: 12px 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 120px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .detail-item.dummy-hidden {
+            background: #333;
+            border-color: #222;
+            pointer-events: none;
+        }
+
+        .detail-item.dummy-hidden span:first-child {
+            color: #777;
+        }
+
+        .detail-item.dummy-hidden .reveal-btn {
+            background-color: #444;
+            color: #666;
+        }
+
+        .detail-item span:first-child {
+            font-size: 14px;
+            font-weight: 700;
+            color: #4a5568;
+        }
+
+        .reveal-btn {
+            background-color: #f1f5f9;
+            color: #475569;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Noto Sans JP', sans-serif;
+            white-space: nowrap;
+        }
+
+        .reveal-btn:hover {
+            background-color: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .revealed-result {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1;
+            padding: 1px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .revealed-result.correct {
+            color: #e53e3e;
+        }
+
+        .revealed-result.incorrect {
+            color: #3182ce;
+        }
+
+        .hints-block {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.05);
+        }
+
+        .hints-block h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #166534;
+            text-align: center;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #bbf7d0;
+            padding-bottom: 10px;
+            display: block;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+        }
+
+        .toggle-dummy-btn {
+            background-color: #ffffff;
+            color: #555;
+            border: 2px solid #eef2f5;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 0;
+            transition: all 0.2s ease;
+            display: block;
+            width: 100%;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .toggle-dummy-btn:hover {
+            border-color: #bdc3c7;
+            color: #333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .toggle-dummy-btn.active {
+            background-color: #f8f9fa;
+            border-color: #dcdde1;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.05);
+            color: #7f8fa6;
+            transform: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .confirm-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 90%;
+            color: #2d3748;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .confirm-box p {
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .confirm-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .confirm-btns button {
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .confirm-btns button.yes-btn {
+            background-color: #e53e3e;
+            color: #fff;
+        }
+
+        .confirm-btns button.yes-btn:hover {
+            background-color: #c53030;
+            transform: translateY(-1px);
+        }
+
+        .confirm-btns button.no-btn {
+            background-color: #edf2f7;
+            color: #4a5568;
+        }
+
+        .confirm-btns button.no-btn:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="image-modal" class="modal" onclick="closeModal()">
+        <img id="modal-img" src="">
+    </div>
+
+    <div id="confirm-modal" class="modal" style="z-index: 1001;">
+        <div class="confirm-box">
+            <p id="confirm-text"></p>
+            <div class="confirm-btns">
+                <button class="yes-btn" onclick="executeConfirm()">はい</button>
+                <button class="no-btn" onclick="closeConfirmModal()">いいえ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <img src="image/main_visual.jpg" alt="メインビジュアル"
+                style="max-width: 100%; border-radius: 4px; margin-bottom: 20px; cursor: pointer;"
+                onclick="openModal(this.src)">
+            <div class="intro-text">
+                <p>全10枚の画像がある。</p>
+                <p>これらは、「検索可能クイズ」か、「検索可能クイズっぽい見た目の謎解き」のどちらかである。</p>
+                <p><span class="highlight-warning">但し、10枚の画像のうち3枚は「問題でも何でもないそれっぽい画像」である。</span></p>
+                <p class="final-mission">「問題」になっている画像がどれかを見極め、全7問の答えを導け。</p>
+            </div>
+
+            <div class="desc">
+                <div class="desc-section">
+                    <h3>「クイズ」と「謎解き」と「それっぽい画像」の意味</h3>
+                    <ul>
+                        <li>「検索可能クイズ」は、インターネットでの検索をはじめ、あらゆる調査手段が認められる。</li>
+                        <li>「検索可能クイズ」は全て独立した問題であり、他の画像につながりはない。</li>
+                        <li>「謎解き」は、専門的な知識を必要としない問題である。</li>
+                        <li>「謎解き」は、他の画像とつながりがあるかもしれない。</li>
+                        <li>「それっぽい画像」は、何かをモチーフにしたり何か元ネタがあるわけではない、一切の意味を持たない画像である。</li>
+                        <li>「それっぽい画像」は、「画像の一部分のみがでたらめ」というわけではなく、画像の要素全てにおいて、何からも着想を得ていない。</li>
+                    </ul>
+                </div>
+
+                <div class="desc-section">
+                    <h3>解答方法</h3>
+                    <ul>
+                        <li>画像の下の入力欄に、その画像の解答を入力すること。</li>
+                        <li>ページ下の「確定」ボタンを押すことによって、正解数が表示される。</li>
+                        <li>表記ゆれにはなるべく対応しているが、原則「日本語」で解答すること。</li>
+                        <li>文章で解答する必要のある問題は、その問題を解答するのに含まれるべき単語が十分にあるかどうかで正誤を判断している。</li>
+                    </ul>
+                </div>
+
+                <div class="desc-section">
+                    <h3>注意事項</h3>
+                    <ul>
+                        <li>問題は、想定解のみを正解とする。</li>
+                        <li>「それっぽい画像」の解答欄には何を入力しても正解数に影響しない。</li>
+                        <li>「クイズ」と「謎解き」の問題数は各何問か分からない。</li>
+                        <li>ご友人と一緒に問題を解いても構わないが、SNS等で解答やヒントを共有してはいけない。</li>
+                    </ul>
+                </div>
+
+                <div class="desc-section contact-section">
+                    <h3>問い合わせ先</h3>
+                    <p>正誤判定やサイトの挙動がおかしい、などのご意見がありましたら、お手数おかけしますが以下のアカウントのダイレクトメッセージまでご連絡ください。<br>
+                        <a href="https://twitter.com/amedesuu" target="_blank" rel="noopener noreferrer">@amedesuu</a>
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <div id="questions-area"></div>
+
+        <div class="footer">
+            <button class="submit-btn" onclick="checkAnswers()">確定</button>
+            <div id="result" class="result"></div>
+        </div>
+
+        <div class="hints-block">
+            <h3>Hint</h3>
+            <button id="show-genre-btn" class="toggle-dummy-btn" onclick="toggleGenreShow()"
+                style="margin-bottom: 15px;">各画像にジャンルを表示する</button>
+            <button id="toggle-dummy-btn" class="toggle-dummy-btn"
+                onclick="toggleDummyQuestions()">正解のない画像を区別する</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modal-img').src = src;
+            document.getElementById('image-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('image-modal').style.display = 'none';
+        }
+
+        let dummyHidden = false;
+        let genreShown = false;
+        let currentConfirmAction = null;
+
+        function executeConfirm() {
+            if (currentConfirmAction) currentConfirmAction();
+        }
+
+        function toggleGenreShow() {
+            if (genreShown) {
+                executeShowGenreToggle();
+                return;
+            }
+            const text = "各画像に、問題ジャンルを表示しますか？<br>「QUIZ」、「RIDDLE」のどちらかが各画像に表示されます。<br><span style='font-size:13px;color:#777;display:block;margin-top:10px;'>※正解のない画像にはどちらかが適当に表示されます。</span>";
+            currentConfirmAction = executeShowGenreToggle;
+            document.getElementById('confirm-text').innerHTML = text;
+            document.getElementById('confirm-modal').style.display = 'flex';
+        }
+
+        function executeShowGenreToggle() {
+            closeConfirmModal();
+            genreShown = !genreShown;
+            const btn = document.getElementById('show-genre-btn');
+
+            if (genreShown) {
+                btn.classList.add('active');
+                const genres = ['Quiz', 'Riddle', 'Riddle', 'Riddle', 'Quiz', 'Quiz', 'Riddle', 'Quiz', 'Quiz', 'Riddle'];
+                genres.forEach((genre, index) => {
+                    const qNum = index + 1;
+                    const wrapper = document.querySelector(`#q-block-${qNum} .img-wrapper`);
+                    if (wrapper) {
+                        const badge = document.createElement('div');
+                        badge.className = `genre-badge genre-${genre.toLowerCase()}`;
+                        badge.id = `genre-badge-${qNum}`;
+                        badge.innerText = genre;
+                        wrapper.appendChild(badge);
+                    }
+                });
+            } else {
+                btn.classList.remove('active');
+                document.querySelectorAll('.genre-badge').forEach(el => el.remove());
+            }
+        }
+
+        function toggleDummyQuestions() {
+            if (dummyHidden) {
+                executeToggle();
+                return;
+            }
+            const text = "正解のない画像を区別しますか？<br>該当する画像が暗転し、解答欄への入力が出来なくなります。";
+            currentConfirmAction = executeToggle;
+            document.getElementById('confirm-text').innerHTML = text;
+            document.getElementById('confirm-modal').style.display = 'flex';
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirm-modal').style.display = 'none';
+        }
+
+        function executeToggle() {
+            closeConfirmModal();
+            dummyHidden = !dummyHidden;
+            const btn = document.getElementById('toggle-dummy-btn');
+
+            if (dummyHidden) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+
+            const dummyIndices = [4, 6, 9];
+            dummyIndices.forEach(qNum => {
+                const qDiv = document.getElementById(`q-block-${qNum}`);
+                const input = document.getElementById(`q${qNum}`);
+                if (qDiv && input) {
+                    if (dummyHidden) {
+                        qDiv.classList.add('dummy-hidden');
+                        input.disabled = true;
+                        input.value = '';
+                    } else {
+                        qDiv.classList.remove('dummy-hidden');
+                        input.disabled = false;
+                    }
+                }
+                const resultItem = document.getElementById(`result-item-${qNum}`);
+                if (resultItem) {
+                    const btn = resultItem.querySelector('.reveal-btn');
+                    if (dummyHidden) {
+                        resultItem.classList.add('dummy-hidden');
+                        if (btn) btn.disabled = true;
+                    } else {
+                        resultItem.classList.remove('dummy-hidden');
+                        if (btn) btn.disabled = false;
+                    }
+                }
+            });
+        }
+
+        const imageFiles = [
+            'q1.jpg',
+            'q2.jpg',
+            'q3.jpg',
+            'q4.jpg',
+            'q5.jpg',
+            'q6.jpg',
+            'q7.jpg',
+            'q8.jpg',
+            'q9.jpg',
+            'q10.jpg'
+        ];
+
+        const container = document.getElementById('questions-area');
+        imageFiles.forEach((file, index) => {
+            const qNum = index + 1;
+            const html = `
+                <div id="q-block-${qNum}" class="question">
+                    <div class="img-wrapper">
+                        <img src="image/${file}" alt="問題${qNum}" style="cursor: pointer;" onclick="openModal(this.src)">
+                    </div>
+                    <div class="input-wrap">
+                        <input type="text" id="q${qNum}" placeholder="解答を入力">
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        });
+
+        // 半角カナ→全角カナの対応表
+        const kanaMap = {
+            'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
+            'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
+            'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
+            'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
+            'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
+            'ｳﾞ': 'ヴ',
+            'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
+            'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
+            'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
+            'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
+            'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
+            'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+            'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
+            'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
+            'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
+            'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
+            'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
+            'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
+            'ｰ': 'ー', '･': '・', 'ﾞ': '゛', 'ﾟ': '゜'
+        };
+
+        function normalizeText(text) {
+            if (!text) return "";
+
+            // 1. 全角英数字を半角英数字に変換
+            let str = text.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
+                return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+            });
+
+            // 2. 半角カタカナを全角カタカナに変換（濁点分離を結合）
+            // 2文字のもの（濁点・半濁点付き）を先に置換
+            let reg2 = new RegExp(Object.keys(kanaMap).filter(k => k.length === 2).join('|'), 'g');
+            str = str.replace(reg2, match => kanaMap[match]);
+            // 1文字のものを置換
+            let reg1 = new RegExp(Object.keys(kanaMap).filter(k => k.length === 1).join('|'), 'g');
+            str = str.replace(reg1, match => kanaMap[match]);
+
+            // 3. 全角カタカナを「ひらがな」に変換
+            str = str.replace(/[\u30A1-\u30F6]/g, function (match) {
+                return String.fromCharCode(match.charCodeAt(0) - 0x0060);
+            });
+
+            // 4. 文字列内の空白（スペース）を全て削除
+            str = str.replace(/[\s\u3000]+/g, '');
+
+            // 5. アルファベットを全て小文字に統一
+            str = str.toLowerCase();
+
+            return str;
+        }
+
+        function _d(arr) {
+            return arr.map(s => decodeURIComponent(atob(s)));
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const results = Array(10).fill(false);
+
+            const ans1 = normalizeText(document.getElementById('q1').value);
+            if (_d(['NCVFNSU4OCU4NjMzJUU3JUE3JTky', 'NCVFNSU4OCU4NjMz', 'NCczMw==', 'NCczMyUyMg==', 'NCUzQTMz']).includes(ans1)) { score++; results[0] = true; }
+
+            const ans2 = normalizeText(document.getElementById('q2').value);
+            const q2GrpA = _d(['JUU2JTk1JUIwJUU1JUFEJTk3', 'JUU4JUE1JUJGJUU2JTlBJUE2', 'JUUzJTgxJUE4JUUzJTgxJTk3', 'JUU1JUI5JUI0', 'JUUzJTgxJTk5JUUzJTgxJTg2JUUzJTgxJTk4', 'JUU4JUFBJUFEJUUzJTgxJUJG', 'JUUzJTgyJTg4JUUzJTgxJUJG', 'JUUzJTgxJUIyJUUzJTgyJTg5JUUzJTgxJThDJUUzJTgxJUFB', 'JUUzJTgxJThCJUUzJTgxJUFB']);
+            const q2GrpB = _d(['JUU2JTk2JTg3JUU1JUFEJTk3JUU2JTk1JUIw', 'JUU1JUFEJTk3JUU2JTk1JUIw', 'JUUzJTgxJThCJUUzJTgxJTlB', 'JUU2JTk1JUIw']);
+            if (q2GrpB.some(w => ans2.includes(w)) || (q2GrpA.some(w => ans2.includes(w)) && q2GrpB.some(w => ans2.includes(w)))) {
+                score++; results[1] = true;
+            }
+
+            const ans3 = normalizeText(document.getElementById('q3').value);
+            if (_d(['cGVu', 'JUUzJTgxJUJBJUUzJTgyJTkz']).includes(ans3)) { score++; results[2] = true; }
+
+            const ans5 = normalizeText(document.getElementById('q5').value);
+            const q5GrpA = _d(['JUU1JUI3JUE4JUU0JUJBJUJB', 'JUUzJTgxJThEJUUzJTgyJTg3JUUzJTgxJTk4JUUzJTgyJTkz', 'Z2lhbnQ=']);
+            const q5GrpB = _d(['JUU4JTgyJUE5', 'JUUzJTgxJThCJUUzJTgxJTlG', 'c2hvdWxkZXI=']);
+            const q5GrpC = _d(['JUU3JUFCJThCJUUzJTgxJUE0', 'JUUzJTgxJTlGJUUzJTgxJUE0', 'c3RhbmQ=', 'JUU0JUI5JTk3JUUzJTgyJThC', 'JUUzJTgxJUFFJUUzJTgyJThC']);
+            if (q5GrpA.some(w => ans5.includes(w)) &&
+                q5GrpB.some(w => ans5.includes(w)) &&
+                q5GrpC.some(w => ans5.includes(w))) {
+                score++; results[4] = true;
+            }
+
+            const ans7 = normalizeText(document.getElementById('q7').value);
+            if (_d(['JUUzJTgxJThCJUUzJTgyJTg5JUUzJTgxJUE2JUUzJTgxJThC', 'JUU3JUE5JUJBJUU2JTg5JThCJUU1JUFFJUI2']).includes(ans7)) { score++; results[6] = true; }
+
+            const ans8 = normalizeText(document.getElementById('q8').value);
+            const numsOnly = ans8.replace(/[^0-9]/g, '');
+            if (_d(['MTUwMA==']).includes(numsOnly)) { score++; results[7] = true; }
+
+            const ans10 = normalizeText(document.getElementById('q10').value);
+            if (_d(['JUUzJTgxJUI1JUUzJTgyJTg5JUUzJTgxJTg0JUUzJTgxJUE4', 'ZmxpZ2h0']).includes(ans10)) { score++; results[9] = true; }
+
+            document.getElementById('result').innerText = `正解数: ${score} / 7`;
+            renderDetails(results);
+            renderShareButton(score);
+        }
+
+        function renderShareButton(score) {
+            let shareBtn = document.getElementById('share-x-btn');
+
+            if (score === 0) {
+                if (shareBtn) shareBtn.remove();
+                return;
+            }
+
+            if (!shareBtn) {
+                shareBtn = document.createElement('button');
+                shareBtn.id = 'share-x-btn';
+                shareBtn.className = 'share-x-btn';
+                shareBtn.innerText = 'Xで結果を共有';
+                const detailsDiv = document.getElementById('details-area');
+                if (detailsDiv) {
+                    detailsDiv.insertAdjacentElement('afterend', shareBtn);
+                }
+            }
+
+            let headline = "";
+            if (!genreShown && !dummyHidden) {
+                headline = "　クイズ/謎解き/ダミーを見極め\n　　7問中【" + score + "問】解き明かした";
+            } else if (genreShown && !dummyHidden) {
+                headline = "　　　　 ダミーを見極め\n　　7問中【" + score + "問】解き明かした";
+            } else if (!genreShown && dummyHidden) {
+                headline = "　　　クイズ/謎解きを見極め\n　　7問中【" + score + "問】解き明かした";
+            } else if (genreShown && dummyHidden) {
+                headline = "　　　　クイズ/謎解きを\n　　7問中【" + score + "問】解き明かした";
+            }
+
+            const text = "◆ーーーーーーーーーーーーーー◆\n" + headline + "\n◆ーーーーーーーーーーーーーー◆\n\n#Quiddless\n\n挑戦⇒[この後作るgithub pageのURL]";
+            const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            shareBtn.onclick = function() {
+                window.open(xUrl, '_blank');
+            };
+        }
+
+        function renderDetails(results) {
+            let detailsDiv = document.getElementById('details-area');
+            if (!detailsDiv) {
+                detailsDiv = document.createElement('div');
+                detailsDiv.id = 'details-area';
+                detailsDiv.className = 'details-area';
+                document.getElementById('result').insertAdjacentElement('afterend', detailsDiv);
+            }
+
+            let html = '';
+            const dummyIndices = [4, 6, 9];
+            for (let i = 0; i < 10; i++) {
+                const qNum = i + 1;
+                const isCorrect = results[i];
+                const isDummyHidden = dummyHidden && dummyIndices.includes(qNum);
+                const hiddenClass = isDummyHidden ? ' dummy-hidden' : '';
+                const btnDisabled = isDummyHidden ? 'disabled' : '';
+                html += `
+                    <div class="detail-item${hiddenClass}" id="result-item-${qNum}">
+                        <span>問題${qNum}</span>
+                        <button class="reveal-btn" onclick="revealResult(this, ${isCorrect})" ${btnDisabled}>正誤を表示</button>
+                    </div>
+                `;
+            }
+            detailsDiv.innerHTML = html;
+        }
+
+        window.revealResult = function (btn, isCorrect) {
+            const resultHtml = `<span class="revealed-result ${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '○' : '×'}</span>`;
+            btn.outerHTML = resultHtml;
+        };
+    </script>
+</body>
+
+</html>
