@@ -240,7 +240,7 @@ function openModal(src) {
             } else {
                 resultEl.classList.remove('perfect');
             }
-            renderDetails(results);
+            renderDetails(results, score === 7);
             renderShareButton(score, origGenreShown, origDummyHidden);
         }
 
@@ -257,9 +257,14 @@ function openModal(src) {
                 shareBtn.id = 'share-x-btn';
                 shareBtn.className = 'share-x-btn';
                 shareBtn.innerText = 'Xで結果を共有';
-                const detailsDiv = document.getElementById('details-area');
-                if (detailsDiv) {
-                    detailsDiv.insertAdjacentElement('afterend', shareBtn);
+                const warningP = document.getElementById('share-warning');
+                if (warningP) {
+                    warningP.insertAdjacentElement('afterend', shareBtn);
+                } else {
+                    const detailsDiv = document.getElementById('details-area');
+                    if (detailsDiv) {
+                        detailsDiv.insertAdjacentElement('afterend', shareBtn);
+                    }
                 }
             }
 
@@ -281,7 +286,7 @@ function openModal(src) {
             };
         }
 
-        function renderDetails(results) {
+        function renderDetails(results, isPerfect) {
             let detailsDiv = document.getElementById('details-area');
             if (!detailsDiv) {
                 detailsDiv = document.createElement('div');
@@ -298,14 +303,32 @@ function openModal(src) {
                 const isDummyHidden = dummyHidden && dummyIndices.includes(qNum);
                 const hiddenClass = isDummyHidden ? ' dummy-hidden' : '';
                 const btnDisabled = isDummyHidden ? 'disabled' : '';
+
+                let resultOrBtn = `<button class="reveal-btn" onclick="revealResult(this, ${isCorrect})" ${btnDisabled}>正誤を表示</button>`;
+                if (isPerfect && !isDummyHidden) {
+                    resultOrBtn = `<span class="revealed-result ${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '○' : '×'}</span>`;
+                }
+
                 html += `
                     <div class="detail-item${hiddenClass}" id="result-item-${qNum}">
                         <span>問題${qNum}</span>
-                        <button class="reveal-btn" onclick="revealResult(this, ${isCorrect})" ${btnDisabled}>正誤を表示</button>
+                        ${resultOrBtn}
                     </div>
                 `;
             }
             detailsDiv.innerHTML = html;
+
+            let warningP = document.getElementById('share-warning');
+            if (!warningP) {
+                warningP = document.createElement('p');
+                warningP.id = 'share-warning';
+                warningP.innerText = '※共有は禁止です';
+                warningP.style.textAlign = 'center';
+                warningP.style.marginTop = '25px';
+                warningP.style.fontSize = '14px';
+                warningP.style.color = '#718096';
+                detailsDiv.insertAdjacentElement('afterend', warningP);
+            }
         }
 
         window.revealResult = function (btn, isCorrect) {
