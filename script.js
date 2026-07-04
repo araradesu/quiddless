@@ -228,18 +228,23 @@ function openModal(src) {
             const ans10 = normalizeText(document.getElementById('q10').value);
             if (_d(['JUUzJTgxJUI1JUUzJTgyJTg5JUUzJTgxJTg0JUUzJTgxJUE4', 'ZmxpZ2h0']).includes(ans10)) { score++; results[9] = true; }
 
+            const origGenreShown = genreShown;
+            const origDummyHidden = dummyHidden;
+
             const resultEl = document.getElementById('result');
             resultEl.innerText = `正解数: ${score} / 7`;
             if (score === 7) {
                 resultEl.classList.add('perfect');
+                if (!genreShown) executeShowGenreToggle();
+                if (!dummyHidden) executeToggle();
             } else {
                 resultEl.classList.remove('perfect');
             }
             renderDetails(results);
-            renderShareButton(score);
+            renderShareButton(score, origGenreShown, origDummyHidden);
         }
 
-        function renderShareButton(score) {
+        function renderShareButton(score, gs = genreShown, dh = dummyHidden) {
             let shareBtn = document.getElementById('share-x-btn');
 
             if (score === 0) {
@@ -259,13 +264,13 @@ function openModal(src) {
             }
 
             let headline = "";
-            if (!genreShown && !dummyHidden) {
+            if (!gs && !dh) {
                 headline = "　クイズ/謎解き/ダミーを見極め\n　　7問中【" + score + "問】解き明かした";
-            } else if (genreShown && !dummyHidden) {
+            } else if (gs && !dh) {
                 headline = "　　　　 ダミーを見極め\n　　7問中【" + score + "問】解き明かした";
-            } else if (!genreShown && dummyHidden) {
+            } else if (!gs && dh) {
                 headline = "　　　クイズ/謎解きを見極め\n　　7問中【" + score + "問】解き明かした";
-            } else if (genreShown && dummyHidden) {
+            } else if (gs && dh) {
                 headline = "　　　　クイズ/謎解きを\n　　7問中【" + score + "問】解き明かした";
             }
 
