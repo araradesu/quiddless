@@ -242,6 +242,24 @@ function openModal(src) {
             }
             renderDetails(results, score === 7);
             renderShareButton(score, origGenreShown, origDummyHidden);
+            renderWarningText();
+        }
+
+        function renderWarningText() {
+            let warningP = document.getElementById('share-warning');
+            if (!warningP) {
+                warningP = document.createElement('p');
+                warningP.id = 'share-warning';
+                warningP.style.textAlign = 'center';
+                warningP.style.marginTop = '25px';
+                warningP.style.fontSize = '14px';
+                warningP.style.color = '#718096';
+            }
+            warningP.innerText = '※このページのスクリーンショットなどの共有は禁止';
+            const footer = document.querySelector('.footer');
+            if (footer) {
+                footer.appendChild(warningP);
+            }
         }
 
         function renderShareButton(score, gs = genreShown, dh = dummyHidden) {
@@ -257,14 +275,9 @@ function openModal(src) {
                 shareBtn.id = 'share-x-btn';
                 shareBtn.className = 'share-x-btn';
                 shareBtn.innerText = 'Xで結果を共有';
-                const warningP = document.getElementById('share-warning');
-                if (warningP) {
-                    warningP.insertAdjacentElement('afterend', shareBtn);
-                } else {
-                    const detailsDiv = document.getElementById('details-area');
-                    if (detailsDiv) {
-                        detailsDiv.insertAdjacentElement('afterend', shareBtn);
-                    }
+                const detailsDiv = document.getElementById('details-area');
+                if (detailsDiv) {
+                    detailsDiv.insertAdjacentElement('afterend', shareBtn);
                 }
             }
 
@@ -317,18 +330,6 @@ function openModal(src) {
                 `;
             }
             detailsDiv.innerHTML = html;
-
-            let warningP = document.getElementById('share-warning');
-            if (!warningP) {
-                warningP = document.createElement('p');
-                warningP.id = 'share-warning';
-                warningP.innerText = '※共有は禁止です';
-                warningP.style.textAlign = 'center';
-                warningP.style.marginTop = '25px';
-                warningP.style.fontSize = '14px';
-                warningP.style.color = '#718096';
-                detailsDiv.insertAdjacentElement('afterend', warningP);
-            }
         }
 
         window.revealResult = function (btn, isCorrect) {
